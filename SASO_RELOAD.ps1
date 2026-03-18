@@ -26,8 +26,11 @@ try {
     # -------------------------------
     # Define backup source
     # -------------------------------
-    $desktopPath = [Environment]::GetFolderPath("Desktop")
-    $backupSource = Join-Path $desktopPath "restore"
+    $backupSource = Read-Host "Enter the full path to the backup source folder"
+
+    if ([string]::IsNullOrWhiteSpace($backupSource)) {
+        throw "Backup path cannot be empty."
+    }
 
     if (!(Test-Path $backupSource)) {
         throw "Backup path does not exist: $backupSource"
